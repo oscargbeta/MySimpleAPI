@@ -63,7 +63,7 @@ router.route('/stocks')
 	// get all the stocks (accessed at GET http://localhost:8080/api/stocks)
     .get(function(req, res) {
         console.log('Attempting to fetch all Stocks!');
-		Stock.find(function(err, stocks) {
+		Stock.find({}, '-_id Ticker Sector Country Company Price', function(err, stocks) {
             if (err)
 			  res.send(err);
 
@@ -79,11 +79,11 @@ router.route('/stocks/:stock_ticker')
     // Get the stock with that id (accessed at GET http://localhost:8080/api/stocks/:stock_ticker)
     .get(function(req, res) {
 		console.log('Attempting to find ticker: ' + req.params.stock_ticker);
-		Stock.findOne({ 'Ticker': req.params.stock_ticker }, 'Ticker Sector Country Company Price', function (err, stock) {
+		Stock.findOne({ 'Ticker': req.params.stock_ticker }, '-_id Ticker Sector Country Company Price', function (err, stock) {
 		  if (err) 
 			res.send(err);
 		
-		  console.log('Ticker:%s Sector:%s Country:%s Company:%s Price:%s', stock.Ticker, stock.Sector, stock.Country, stock.Company, stock.Price);
+		  console.log('Ticker:%s Sector:%s Country:%s Company:%s Price:%s', stock.Ticker, stock.Sector, stock.Country, stock.Company, stock.Price.toString());
 		  res.json(stock);
 		});        
     });
