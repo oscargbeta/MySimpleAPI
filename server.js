@@ -13,7 +13,8 @@ var port = process.env.PORT || 8080; //setting the port
 
 // connect to our database
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://goodtestuser:pswdGoodUser47@ds125906.mlab.com:25906/simplemongodb');
+// Replace <dbpassword> with actual password
+mongoose.connect('mongodb://testgooduser:<dbpassword>@ds125906.mlab.com:25906/simplemongodb');
 
 var db = mongoose.connection;
 
