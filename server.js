@@ -83,7 +83,7 @@ router.route('/stocks/:stock_ticker')
 		  if (err) 
 			res.send(err);
 		
-		  console.log('Ticker:%s Sector:%s Country:%s Company:%s Price:%s', stock.Ticker, stock.Sector, stock.Country, stock.Company, stock.Price.toString());
+		  //console.log('Ticker:%s Sector:%s Country:%s Company:%s Price:%s', stock.Ticker, stock.Sector, stock.Country, stock.Company, stock.Price.toString());
 		  res.json(stock);
 		});        
     });
