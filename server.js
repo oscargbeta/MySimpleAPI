@@ -63,7 +63,7 @@ router.route('/stocks')
 	// get all the stocks (accessed at GET http://localhost:8080/api/stocks)
     .get(function(req, res) {
         console.log('Attempting to fetch all Stocks!');
-		Stock.find({}, '-_id Ticker Sector Country Company Price', function(err, stocks) {
+		Stock.find({}, '-_id Ticker', function(err, stocks) {
             if (err)
 			  res.send(err);
 
