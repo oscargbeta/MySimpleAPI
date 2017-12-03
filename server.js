@@ -13,11 +13,11 @@ var port = process.env.PORT || 8080; //setting the port
 
 // connect to our database
 var mongoose = require('mongoose');
-//Replace <dbpassword> with real password
-mongoose.connect('mongodb://goodtestuser:<dbpassword>@ds125906.mlab.com:25906/simplemongodb');
+mongoose.connect('mongodb://goodtestuser:pswdGoodUser47@ds125906.mlab.com:25906/simplemongodb');
 
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
+
+//db.on('error', console.error.bind(console, 'connection error:'));
 
 db.once('open', function() {
   console.log("db connection good");
@@ -80,8 +80,10 @@ router.route('/stocks/:stock_ticker')
 		console.log('Attempting to find ticker: ' + req.params.stock_ticker);
 		Stock.findOne({ 'Ticker': req.params.stock_ticker }, 'Ticker Sector Country Company Price', function (err, stock) {
 		  if (err) 
-			return handleError(err);
+			res.send(err);
+		
 		  console.log('Ticker:%s Sector:%s Country:%s Company:%s Price:%s', stock.Ticker, stock.Sector, stock.Country, stock.Company, stock.Price);
+		  res.json(stock);
 		});        
     });
 	
