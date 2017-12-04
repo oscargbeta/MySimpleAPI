@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+	#heading {
+		display: none;	
+	}
+	#stock_details {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;		
+	}
+	
+	h1 {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;		
+	}
+	#stocks_table {
+		font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+		border-collapse: collapse;
+		width: 50%;
+	}
+
+	#stocks_table td, #stocks_table th {
+		border: 1px solid #ddd;
+		padding: 8px;
+	}
+
+	#stocks_table tr:nth-child(even){background-color: #f2f2f2;}
+
+	#stocks_table tr:hover {background-color: #ddd;}
+
+	#stocks_table th {
+		padding-top: 12px;
+		padding-bottom: 12px;
+		text-align: left;
+		background-color: #4CAF50;
+		color: white;
+	}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	$(function(){		
+	
+		$.get("http://localhost:8080/stocks", function(response, status){
+			
+			var stocks = $.parseJSON(response);
+			
+			$.each(stocks, function (i, stock) {
+				$('<tr>').append(
+				$('<td>').text(stock.Ticker),
+				$('<td>').html('<a href="#heading" title="'+stock.Ticker+'">Show</a>')).appendTo('#stocks_table');				
+			});
+		});
+        
+		$("#stocks_table a").click(function() {
+			$.get("http://localhost:8080/stocks/"+$(this).attr("title"), function(response, status){
+				if ($("#heading").is(":hidden"))
+					$("#heading").slideDown("slow");
+				
+				var stock = $.parseJSON(response);
+        
+				$("#ticker").text(stock.Ticker);
+				$("#sector").text(stock.Sector);
+				$("#country").text(stock.Country);
+				$("#company").text(stock.Company);
+				$("#price").text(stock.Price);
+			});
+		});
+		
+	});
+</script>
+</head>
+<body>
+
+<div id="heading">
+	<br>	
+	<div id="stock_details">
+		<h1>Stock</h1>
+		<p>
+		  <strong>Ticker: </strong>
+		  <label id="ticker"></label>
+		</p>
+
+		<p>
+		  <strong>Sector: </strong>
+		  <label id="sector"></label>
+		</p>
+
+		<p>
+		  <strong>Country: </strong>
+		  <label id="country"></label>
+		</p>
+
+		<p>
+		  <strong>Company: </strong>
+		  <label id="company"></label>
+		</p>
+
+		<p>
+		  <strong>Price: </strong>
+		  <label id="price"></label>
+		</p>
+	</div>
+</div>
+<br> 
+
+<h1>Stocks</h1>
+
+<table id="stocks_table" border='1'>
+    <tr>
+        <th>Ticker</th>
+        <th colspan="1"></th>
+    </tr>
+</table>
+
+<br>
+
+</body>
+</html>
