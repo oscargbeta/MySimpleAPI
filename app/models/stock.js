@@ -9,4 +9,4 @@ var StockSchema = new Schema({
 	Price: Number
 });
 
-module.exports = mongoose.model('Stock', StockSchema);
+module.exports = mongoose.model('Stock', StockSchema, 'Stocks');
