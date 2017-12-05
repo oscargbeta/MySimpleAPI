@@ -40,7 +40,7 @@
 <script>
 	$(function(){		
 	
-		$.get("http://localhost:8080/stocks", function(response, status){
+		$.getJSON("http://localhost:8080/api/stocks", function(response, status){
 			
 			var stocks = $.parseJSON(response);
 			
@@ -52,7 +52,7 @@
 		});
         
 		$("#stocks_table a").click(function() {
-			$.get("http://localhost:8080/stocks/"+$(this).attr("title"), function(response, status){
+			$.getJSON("http://localhost:8080/api/stocks/"+$(this).attr("title"), function(response, status){
 				if ($("#heading").is(":hidden"))
 					$("#heading").slideDown("slow");
 				
