@@ -42,7 +42,7 @@
 	
 		$.getJSON("http://localhost:8080/api/stocks", function(response, status){
 			
-			var stocks = $.parseJSON(response);
+			var stocks = response; //$.parseJSON(response);
 			
 			$.each(stocks, function (i, stock) {
 				$('<tr>').append(
@@ -51,12 +51,12 @@
 			});
 		});
         
-		$("#stocks_table a").click(function() {
+		$("#stocks_table").on('click', 'a', function() {
 			$.getJSON("http://localhost:8080/api/stocks/"+$(this).attr("title"), function(response, status){
 				if ($("#heading").is(":hidden"))
 					$("#heading").slideDown("slow");
 				
-				var stock = $.parseJSON(response);
+				var stock = response;
         
 				$("#ticker").text(stock.Ticker);
 				$("#sector").text(stock.Sector);
